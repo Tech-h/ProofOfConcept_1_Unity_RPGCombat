@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+   
     [Header("Movement Settigs")]
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] float rotationSpeed = 500f;
@@ -12,7 +13,9 @@ public class Player : MonoBehaviour
     [SerializeField] Vector3 groundCheckOffset;
     [SerializeField] LayerMask groundLayer;
 
+
     bool isGrounded;
+    bool isRunning;
 
     float ySpeed;
 
@@ -60,6 +63,8 @@ public class Player : MonoBehaviour
 
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
+        ManualInputSystem();
+
         animator.SetFloat("moveAmount", moveAmount, 0.2f, Time.deltaTime);
     }
     private void GroundCheck()
@@ -71,5 +76,13 @@ public class Player : MonoBehaviour
     {
         Gizmos.color = new Color(0, 1, 0, 0.5f);
         Gizmos.DrawSphere(transform.TransformPoint(groundCheckOffset), groundCheckRadius);
+    }
+
+    private void ManualInputSystem()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+
+        }
     }
 }

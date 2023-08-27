@@ -12,7 +12,7 @@ public class GameEvent : ScriptableObject
 
     public void Raise(Component sender, object data)
     {
-        for (int i = 0; i < listners.Count -1; i--)
+        for (int i = 0; i < listners.Count; i++)
             listners[i].OnEventRaised(sender, data);
     }
 
