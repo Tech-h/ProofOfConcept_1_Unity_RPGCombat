@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
@@ -15,7 +16,6 @@ public class Player : MonoBehaviour
 
 
     bool isGrounded;
-    bool isRunning;
 
     float ySpeed;
 
@@ -80,9 +80,13 @@ public class Player : MonoBehaviour
 
     private void ManualInputSystem()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-
+            animator.SetTrigger("Roll");
+        }
+        else if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            animator.SetTrigger("Attack");
         }
     }
 }

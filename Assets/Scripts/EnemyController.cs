@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
     public NavMeshAgent agent;
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
+    
 
     public float health;
 
@@ -25,54 +26,60 @@ public class EnemyController : MonoBehaviour
     bool isDodging;
 
     // States
-    public float sightRange, attackRange;
-    public bool playerInSightRange, playerInAttackRange;
+    public float sightRange, jumpAttackRange, attackRange;
+    public bool playerInSightRange, playerJumpAttackRange, playerInAttackRange;
+
+    // Components
+    private Animator animator;
 
     private void Awake()
     {
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+        playerJumpAttackRange = Physics.CheckSphere(transform.position, jumpAttackRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        /*if (!playerInSightRange && !playerInAttackRange)
+        if (!playerInSightRange && !playerInAttackRange && animator.GetBool("IsDead") == false)
         {
-            //Debug.Log("Patroling");
-            //Patroling();
-        }*/
-        if (playerInSightRange && !playerInAttackRange)
+            Debug.Log("Patroling");
+            Patroling();
+        }
+        if (playerInSightRange && !playerInAttackRange && animator.GetBool("IsDead") == false)
         {
             Debug.Log("Chasing");
             ChasePlayer();
         }
-        if (playerInSightRange && playerInAttackRange)
+        if (playerInSightRange && playerInAttackRange && animator.GetBool("IsDead") == false)
         {
             Debug.Log("Attacking");
             AttackPlayer();
         }
     }
 
-   /* private void Patroling()
-    {
-        if (!walkPointSet) SearchWalkPoint();
+    private void Patroling()
+     {
+        animator.SetFloat("MoveAmount", 0);
+        /*  if (!walkPointSet) SearchWalkPoint();
 
-        if (walkPointSet)
-        {
-            agent.SetDestination(walkPoint);
-        }
+          if (walkPointSet)
+          {
+              agent.SetDestination(walkPoint);
+          }
 
-        Vector3 distanceToWalkPoint = transform.position - walkPoint;
+          Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
-        //Walkpoint reached
-        if (distanceToWalkPoint.magnitude < 1f)
-        {
-            walkPointSet = false;
-        }
-    }*/
+          //Walkpoint reached
+          if (distanceToWalkPoint.magnitude < 1f)
+          {
+              walkPointSet = false;
+          }*/
+    }
     /*private void SearchWalkPoint()
     {
         float randomZ = UnityEngine.Random.Range(-walkPointRange, walkPointRange);
@@ -89,6 +96,7 @@ public class EnemyController : MonoBehaviour
     private void ChasePlayer()
     {
         agent.SetDestination(player.position);
+        animator.SetFloat("MoveAmount", 1);
     }
 
     private void AttackPlayer()
@@ -96,6 +104,7 @@ public class EnemyController : MonoBehaviour
         //Make sure enemy doesn't move
         agent.SetDestination(transform.position);
         transform.LookAt(player);
+        animator.SetFloat("MoveAmount", 0);
 
         if (!alreadyAttacked)
         {
@@ -116,13 +125,19 @@ public class EnemyController : MonoBehaviour
     {
         health -= damage;
 
-        if (health < 0) Invoke(nameof(DestroyEnemy), 0.5f);
+        if (health < 0)
+        {
+            animator.SetBool("isDead", true);
+           // Invoke(nameof(DestroyEnemy), 0.5f);
+        }
     }
 
     private void DestroyEnemy()
     {
         Destroy(gameObject);
     }
+
+
 
    /* private void OnDrawGizmos()
     {
