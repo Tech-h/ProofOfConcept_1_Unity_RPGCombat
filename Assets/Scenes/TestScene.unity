@@ -619,7 +619,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 405449636}
-  - component: {fileID: 405449635}
   - component: {fileID: 405449634}
   - component: {fileID: 405449637}
   m_Layer: 0
@@ -651,36 +650,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &405449635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 405449633}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 000862cf662eb654bb2012718ab81b12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 405449634}
-  player: {fileID: 2021138430}
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 64
-  whatIsPlayer:
-    serializedVersion: 2
-    m_Bits: 128
-  health: 120
-  walkPoint: {x: 0, y: 0, z: 0}
-  walkPointRange: 5
-  timeBetweenAttacks: 3
-  sightRange: 12
-  jumpAttackRange: 0
-  attackRange: 3.5
-  playerInSightRange: 0
-  playerJumpAttackRange: 0
-  playerInAttackRange: 0
 --- !u!4 &405449636
 Transform:
   m_ObjectHideFlags: 0
@@ -1788,7 +1757,8 @@ GameObject:
   - component: {fileID: 2021138431}
   - component: {fileID: 2021138433}
   - component: {fileID: 2021138435}
-  - component: {fileID: 2021138434}
+  - component: {fileID: 2021138436}
+  - component: {fileID: 2021138437}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -1859,19 +1829,6 @@ CharacterController:
   m_SkinWidth: 0.02
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.9, z: 0.08}
---- !u!114 &2021138434
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2021138429}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f97e0de90eb1545bb65d658b628386, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &2021138435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1886,6 +1843,59 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MouseDelta: {x: 0, y: 0}
   MoveComposite: {x: 0, y: 0}
+--- !u!114 &2021138436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021138429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20f97e0de90eb1545bb65d658b628386, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Velocity: {x: 0, y: 0, z: 0}
+  MovementSpeed: 5
+  JumpForce: 5
+  LookRotationDampFactor: 10
+  groundCheckRadius: 0.2
+  groundCheckOffset: {x: 0, y: 0, z: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  isGrounded: 0
+--- !u!114 &2021138437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021138429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 59402ca1b04489e44b8ee67b626d097a,
+    type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: 
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

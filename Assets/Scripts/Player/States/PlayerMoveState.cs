@@ -17,14 +17,15 @@ public class PlayerMoveState : PlayerBaseState
 
         stateMachine.Animator.CrossFadeInFixedTime(MoveBlendTreeHash, CrossFadeDuration);
 
-        stateMachine.InputReader.OnJumpPerformed += SwitchToJumpState;
+        //stateMachine.InputReader.OnJumpPerformed += SwitchToJumpState;
     }
 
     public override void Tick()
     {
-        if (!stateMachine.Controller.isGrounded)
+        stateMachine.GroundCheck();
+        if (!stateMachine.isGrounded)
         {
-            stateMachine.SwitchState(new PlayerFallState(stateMachine));
+          //  stateMachine.SwitchState(new PlayerFallState(stateMachine));
         }
 
         CalculateMoveDirection();
@@ -36,11 +37,11 @@ public class PlayerMoveState : PlayerBaseState
 
     public override void Exit()
     {
-        stateMachine.InputReader.OnJumpPerformed -= SwitchToJumpState;
+        //stateMachine.InputReader.OnJumpPerformed -= SwitchToJumpState;
     }
 
     private void SwitchToJumpState()
     {
-        stateMachine.SwitchState(new PlayerJumpState(stateMachine));
+       // stateMachine.SwitchState(new PlayerJumpState(stateMachine));
     }
 }

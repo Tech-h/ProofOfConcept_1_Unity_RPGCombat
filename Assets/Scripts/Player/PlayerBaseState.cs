@@ -36,8 +36,14 @@ public abstract class PlayerBaseState : State
 
     protected void ApplyGravity()
     {
-        if (stateMachine.Velocity.y > Physics.gravity.y) 
-            stateMachine.Velocity.y += Physics.gravity.y * Time.deltaTime;
+        stateMachine.GroundCheck();
+        if (!stateMachine.isGrounded)
+        {
+            if (stateMachine.Velocity.y > Physics.gravity.y)
+            {
+                stateMachine.Velocity.y += Physics.gravity.y * Time.deltaTime;
+            }
+        }
     }
 
     protected void Move()
