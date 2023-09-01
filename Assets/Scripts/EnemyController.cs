@@ -47,17 +47,17 @@ public class EnemyController : MonoBehaviour
 
         if (!playerInSightRange && !playerInAttackRange && animator.GetBool("IsDead") == false)
         {
-            Debug.Log("Patroling");
+           // Debug.Log("Patroling");
             Patroling();
         }
         if (playerInSightRange && !playerInAttackRange && animator.GetBool("IsDead") == false)
         {
-            Debug.Log("Chasing");
+           // Debug.Log("Chasing");
             ChasePlayer();
         }
         if (playerInSightRange && playerInAttackRange && animator.GetBool("IsDead") == false)
         {
-            Debug.Log("Attacking");
+          //  Debug.Log("Attacking");
             AttackPlayer();
         }
     }

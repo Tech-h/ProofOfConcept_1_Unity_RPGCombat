@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -16,14 +18,18 @@ public class Player : MonoBehaviour
 
 
     bool isGrounded;
+    bool isRolling = false;
 
     float ySpeed;
+
 
     CameraController cameraController;
     Animator animator;
     CharacterController characterController;
 
     Quaternion targetRotation;
+    private Vector2 moveDirection = Vector2.zero;
+    private Vector2 turnDirection = Vector2.zero;
 
     private void Awake()
     {
@@ -32,14 +38,16 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+
     private void Update()
     {
+
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
         float moveAmount = Mathf.Clamp01(Mathf.Abs(h) + Mathf.Abs(v));
 
-        var moveInput = (new Vector3(h, 0, v)).normalized;
+        var moveInput = (new Vector3(h, 0, v));
         var moveDirection = cameraController.PlanarRotation * moveInput;
 
         GroundCheck();
@@ -54,7 +62,8 @@ public class Player : MonoBehaviour
 
         var velocity = moveDirection * moveSpeed;
         velocity.y = ySpeed;
-        characterController.Move(velocity * Time.deltaTime);
+        if (isRolling == false)
+            characterController.Move(velocity * Time.deltaTime);
 
         if (moveAmount > 0)
         {
@@ -83,6 +92,8 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             animator.SetTrigger("Roll");
+            isRolling = true;
+            
         }
         else if (Input.GetKeyDown(KeyCode.Mouse0))
         {

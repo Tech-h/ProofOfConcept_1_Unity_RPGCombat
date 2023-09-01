@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
-public class PlayerController : MonoBehaviour
+public class PlayerInputControls : MonoBehaviour
 {
     public InputAction playerInput;
 
@@ -23,9 +24,28 @@ public class PlayerController : MonoBehaviour
         playerInput.Disable();
     }
 
-    private void Update()
+    public Vector2 OnMove()
     {
-     //
+        return moveDirection;
     }
 
+    public void MouseMove(InputAction.CallbackContext context)
+    {
+
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+
+    }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+
+    }
+    
+    public void OnPause(InputAction.CallbackContext context)
+    {
+
+    }
 }
